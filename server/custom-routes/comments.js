@@ -5,7 +5,7 @@ let Comments = require ('../models/comments')
 
 module.exports = {
   Comments: {
-    path: '/api/boards/:boardId/lists/:listId/tasks/:taskId/comments',
+    path: '/api/userboards/:boardId/lists/:listId/tasks/:taskId/comments',
     reqType: 'get',
     method(req, res, next){
       let action = 'Find Comments'

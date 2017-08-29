@@ -4,7 +4,7 @@ let Tasks = require('../models/task')
 
 module.exports = {
   Tasks: {
-    path: '/api/boards/:boardId/lists/:listId/tasks',
+    path: '/api/userboards/:boardId/lists/:listId/tasks',
     reqType: 'get',
     method(req, res, next){
       let action = 'Find Tasks'

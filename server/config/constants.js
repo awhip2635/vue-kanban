@@ -9,23 +9,23 @@ const actions = {
 const models = {
   board: {
     name: 'Board',
-    endpoint: 'boards'
+    endpoint: 'userboards'
   },
   list: {
     name: 'List',
-    endpoint: 'boards/:boardId/lists'
+    endpoint: 'userboards/:boardId/lists'
   },
 
   task: {
     name: 'Task',
-    endpoint: 'boards/:boardId/lists/:listId/tasks'
+    endpoint: 'userboards/:boardId/lists/:listId/tasks'
   },
 
   comments: {
     name: 'Comments',
-    endpoint: 'boards/:boardId/lists/:listId/tasks/:taskId/comments'
+    endpoint: 'userboards/:boardId/lists/:listId/tasks/:taskId/comments'
   },
-  
+
   user: {
     name: 'User',
     endpoint: 'users',

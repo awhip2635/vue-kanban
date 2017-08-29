@@ -3,7 +3,7 @@ let Board = require('../models/board')
 
 module.exports = {
   Lists: {
-    path: '/api/boards/:boardId/lists',
+    path: '/api/userboards/:boardId/lists',
     reqType: 'get',
     method(req, res, next){
       let action = 'Find Lists'

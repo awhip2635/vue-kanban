@@ -2,7 +2,7 @@ let Board = require('../models/board')
 
 module.exports = {
   Board: {
-    path: '/boards/:boardId',
+    path: '/userboards/:boardId',
     reqType: 'get',
     method(req, res, next){
       let action = 'Find Board'
