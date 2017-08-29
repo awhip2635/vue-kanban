@@ -19,7 +19,10 @@ var store = new vuex.Store({
   state: {
     boards: [{name: 'This is total rubbish'}],
     activeBoard: {},
-    error: {}
+    error: {},
+    loggedIn: false,
+    registering: false,
+    logging: false
   },
   mutations: {
     setBoards(state, data){
@@ -27,10 +30,67 @@ var store = new vuex.Store({
     },
     handleError(state, err){
       state.error = err
+    },
+    changeLog(state){
+      state.loggedIn = !state.loggedIn
+    },
+    reg(state){
+      state.registering = true
+      state.logging = false
+    },
+    log(state){
+      
+      state.registering = false
+      state.logging = true
     }
   },
   actions: {
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
+    login({commit, dispatch}, obj){
+      auth.post("login", obj)
+          .then((res) => {
+            console.log(res)
+              // res = JSON.parse(res);
+              if (res.data.message == "Invalid Email or Password"){
+                return console.log(res.data.message)
+              } else {
+                dispatch('changeLog')
+              }
+
+          })
+          .catch(() => console.log('error'))
+  },
+    register({commit, dispatch}, obj){
+      auth.post("register", obj)
+          .then((res) => {
+            // console.log(res)
+              // res = JSON.parse(res);
+              if (res.data.message){
+                console.log('account created')
+                dispatch('changeLog')
+              } else if (res.error){
+                  alert("Invalid Email or password");
+              }
+          })
+          .catch(() => console.log('error'))
+  },
+  logout({commit, dispatch}){
+    auth.delete('logout')
+    .then((res)=>{
+      console.log(res.data.message)
+      dispatch('changeLog')
+    })
+    .catch(( )=> console.log('error'))
+  },
+  reg({commit, dispatch}){
+    commit('reg')
+  },
+  log({commit, dispatch}){
+    commit('log')
+  },
+  changeLog({commit, dispatch}){
+    commit('changeLog')
+  },
 
     getBoards({commit, dispatch}) {
       api('boards')
@@ -51,7 +111,7 @@ var store = new vuex.Store({
         })
     },
     createBoard({commit, dispatch}, board) {
-      debugger
+      // debugger
       api.post('boards/',board)
         .then(res => {
           dispatch('getBoards')
