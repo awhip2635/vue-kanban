@@ -9,11 +9,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/:userId/boards',
+      path: '/userboards',
       name: 'Boards',
       component: Boards
     },{
-      path: '/boards/:id',
+      path: '/userboards/:id',
       name: 'Board',
       component: Board
     },{

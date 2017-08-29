@@ -21,7 +21,7 @@
         </div>
         <div v-else>
             <button @click="logout" class="btn btn-default">Logout</button>
-            <a :href="'/#/'+ userid + '/boards'"><button class="btn btn-default">My Boards</button></a>
+            <a href="/#/userboards"><button class="btn btn-default">My Boards</button></a>
         </div>
     </div>
 </template>

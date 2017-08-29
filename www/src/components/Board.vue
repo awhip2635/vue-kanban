@@ -1,6 +1,13 @@
 <template>
   <div> 
-    Active Board: {{board}}
+    <div>
+      <h1>
+        {{board.name}}
+      </h1>
+      <h2>
+        {{board.description}}
+      </h2>
+    </div>
   </div>
 </template>
 
