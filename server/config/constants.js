@@ -13,8 +13,19 @@ const models = {
   },
   list: {
     name: 'List',
-    endpoint: 'lists'
+    endpoint: 'boards/:boardId/lists'
   },
+
+  task: {
+    name: 'Task',
+    endpoint: 'boards/:boardId/lists/:listId/tasks'
+  },
+
+  comments: {
+    name: 'Comments',
+    endpoint: 'boards/:boardId/lists/:listId/tasks/:taskId/comments'
+  },
+  
   user: {
     name: 'User',
     endpoint: 'users',

@@ -1,19 +1,20 @@
-let Boards = require('../models/board')
+let Board = require('../models/board')
 
 module.exports = {
-  userBoards: {
-    path: '/userboards',
+  Board: {
+    path: '/boards/:boardId',
     reqType: 'get',
     method(req, res, next){
-      let action = 'Find User Boards'
-      Boards.find({creatorId: req.session.uid})
-        .then(boards => {
-          res.send(handleResponse(action, boards))
+      let action = 'Find Board'
+      Boards.findById({creatorId: req.session.uid},{boardId: req.params.boardId})
+        .then(board => {
+          res.send(handleResponse(action, board))
         }).catch(error => {
           return next(handleResponse(action, null, error))
         })
     }
-  }
+  },
+  
 }
 
 
