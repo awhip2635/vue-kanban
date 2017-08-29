@@ -19,6 +19,9 @@ var store = new vuex.Store({
   state: {
     boards: [{name: 'This is total rubbish'}],
     activeBoard: {},
+    activeLists: {},
+    activeTasks: {},
+    activeComments: {},
     error: {},
     loggedIn: false,
     registering: false,
@@ -45,14 +48,37 @@ var store = new vuex.Store({
     },
     setActiveBoard(state, payload){
       state.activeBoard = payload
+    },
+    setLists(state, payload){
+      state.activeLists = payload
     }
   },
+
+// on app.vue
+// mounted(){
+//   this.$store.dispatch('getAuth')
+// }
+
+  // getAuth(){
+    // auth('authenticate'){
+    // .then(res => {
+    //   if (!res.data.data){
+    //     return router.push('./login')
+    //   }
+    //   state.user = res.data.data
+    //   router.push('/userboards')
+    // }).catch(err=> {
+    //   router.push('./login')
+    // })
+    // })
+    // }
+  // }
   actions: {
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
     login({commit, dispatch}, obj){
       auth.post("login", obj)
           .then((res) => {
-            console.log(res)
+            // console.log(res)
               // res = JSON.parse(res);
               if (res.data.message == "Invalid Email or Password"){
                 return console.log(res.data.message)
@@ -137,9 +163,10 @@ var store = new vuex.Store({
 // board items ^^^^^^^^^^^^
 
 // list items below
-getList({commit, dispatch}) {
-  api('userboards/:boardId')
+getLists({commit, dispatch}, boardId) {
+  api(`userboards/${boardId}/lists`)
     .then(res => {
+      commit('setLists', res.data.data)
       console.log(res)
     })
     .catch(err=>{
