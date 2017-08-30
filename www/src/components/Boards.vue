@@ -1,35 +1,47 @@
 <template>
-  <div> 
-    <button @click="createBoard">Add Board</button>
+  <div>
+    <form @submit.prevent="createBoard">
+      <input type="text" v-model="name" placeholder="name">
+      <input type="text" v-model="description" placeholder="description">
+      <button type="submit">Add Board</button>
+    </form>
     <ul>
-      <li v-for="board in boards"><router-link :to="'/userboards/'+ board._id">{{board.name}}</router-link> <span @click="removeBoard(board)">x</span></li>
+      <li v-for="board in boards">
+        <router-link :to="'/userboards/'+ board._id + '/lists'">{{board.name}}</router-link> <button @click="removeBoard(board)">x</button></li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'boards',
-  mounted(){
-    this.$store.dispatch('getBoards')
-  },
-  computed:{
-    boards(){
-      return this.$store.state.boards
-    }
-  },
-  methods:{
-    createBoard(){
-      this.$store.dispatch('createBoard', {
-        name: 'Testing board creation',
-        description: 'blarg'
-      })
+  export default {
+    name: 'boards',
+    data(){
+      return{
+        name: '',
+        description: ''
+      }
     },
-    removeBoard(board){
-      this.$store.dispatch('removeBoard', board)
+    mounted() {
+      this.$store.dispatch('getBoards')
+    },
+    computed: {
+      boards() {
+        return this.$store.state.boards
+      }
+    },
+    methods: {
+      createBoard() {
+        this.$store.dispatch('createBoard', {
+          name: this.name,
+          description: this.description
+        })
+      },
+      removeBoard(board) {
+        this.$store.dispatch('removeBoard', board)
+      }
     }
   }
-}
+
 </script>
 
 <style scoped>

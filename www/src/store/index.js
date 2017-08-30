@@ -128,6 +128,7 @@ var store = new vuex.Store({
       api('userboards')
         .then(res => {
           commit('setBoards', res.data.data)
+          commit('setLists', {})
         })
         .catch(err=>{
           commit('handleError', err)
@@ -154,7 +155,7 @@ var store = new vuex.Store({
     removeBoard({commit, dispatch}, board) {
       api.delete('userboards/'+board._id)
         .then(res => {
-          this.getBoards()
+          dispatch('getBoards')
         })
         .catch(err=>{
           commit('handleError', err)

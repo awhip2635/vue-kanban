@@ -13,7 +13,7 @@ export default new Router({
       name: 'Boards',
       component: Boards
     },{
-      path: '/userboards/:id',
+      path: '/userboards/:id/lists',
       name: 'Board',
       component: Board
     },{

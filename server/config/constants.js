@@ -9,21 +9,23 @@ const actions = {
 const models = {
   board: {
     name: 'Board',
-    endpoint: 'userboards'
+    endpoint: 'Boards',
+    useCustomRoutes: true
   },
   list: {
     name: 'List',
-    endpoint: 'userboards/:boardId/lists'
+    endpoint: 'Lists'
+    
   },
 
   task: {
     name: 'Task',
-    endpoint: 'userboards/:boardId/lists/:listId/tasks'
+    endpoint: 'Tasks'
   },
 
   comments: {
     name: 'Comments',
-    endpoint: 'userboards/:boardId/lists/:listId/tasks/:taskId/comments'
+    endpoint: 'Comments'
   },
 
   user: {

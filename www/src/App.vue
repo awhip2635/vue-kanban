@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <error></error>
-    <login></login>
     <router-view></router-view>
   </div>
 </template>
