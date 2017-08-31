@@ -7,6 +7,8 @@ import io from 'socket.io-client'
 import store from './store'
 
 
+
+
 let socket = io('http://localhost:3000')
 
 socket.on('CONNECTED', function (data) {

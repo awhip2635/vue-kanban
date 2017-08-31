@@ -2,6 +2,8 @@ import axios from 'axios'
 import vue from 'vue'
 import vuex from 'vuex'
 
+
+
 let api = axios.create({
   baseURL: 'http://localhost:3000/api/',
   timeout: 2000,

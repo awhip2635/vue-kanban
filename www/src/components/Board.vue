@@ -1,19 +1,20 @@
 <template>
   <div>
     <div>
-      <a href="/#/userboards"><button class="btn btn-default">My Boards</button></a>
-      <h1>
+      <a href="/#/userboards" class="home"><h2>
+home</h2></a>
+      <h1 class="board-credentials">
         {{board.name}}
       </h1>
-      <h2>
+      <p class="board-description">
         {{board.description}}
-      </h2>
-      <hr>
+      </p>
       <form @submit.prevent="createList(board._id)">
         <input type="text" placeholder="Name" v-model="name">
         <input type="text" placeholder="Description" v-model="description">
-        <button type="submit">Add List</button>
+        <button type="submit">Create List</button>
       </form>
+      <hr>
       <div v-for="list in lists">
         <lists :list="list" :boardId="board._id"></lists>
         <!-- <hr>
@@ -99,5 +100,20 @@
 </script>
 
 <style scoped>
+.home {
+  position: fixed;
+  left: 25px;
+}
 
+.board-credentials {
+  color: black;
+  font-family:'Audiowide', cursive;
+  font-size: 100px;
+
+}
+.board-description {
+  color: black;
+  font-family: 'Audiowide', cursive;
+  font-size: 50px;
+}
 </style>

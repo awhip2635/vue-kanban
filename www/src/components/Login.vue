@@ -20,8 +20,17 @@
             </div>
         </div>
         <div v-else>
-            <button @click="logout" class="btn btn-default">Logout</button>
-            <a href="/#/userboards"><button class="btn btn-default">My Boards</button></a>
+            <div class="row">
+                
+                <div class="col-xs-9 col-sm-9 col-md-9">
+                    <h1 class="vue-kanban">Vue Kanban</h1>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+                    <button @click="logout" class="btn btn-default">Logout</button>
+                </div>
+            </div>
+            <a class="my-boards" href="/#/userboards"><button class="btn btn-primary btn-block me-boards">My Boards</button></a>
         </div>
     </div>
 </template>
@@ -91,5 +100,23 @@
 </script>
 
 <style scoped>
+.vue-kanban {
+color: black;
+font-size: 170px;
+
+font-family: 'Encode Sans Condensed', sans-serif;
+
+}
+
+.my-boards {
+    position: fixed;
+    bottom: 0;
+    right: 400px;
+    
+}
+ 
+ .me-boards {
+     width: 800px;
+ }
 
 </style>
