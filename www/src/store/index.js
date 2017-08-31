@@ -64,11 +64,11 @@ var store = new vuex.Store({
       state.activeTasks = []
     },
     setComments(state, {taskId, comments}){
-      console.log('comments',comments)
-      console.log('taskId', taskId)
+      // console.log('comments',comments)
+      // console.log('taskId', taskId)
 
       vue.set(state.comments, taskId, comments)
-      console.log('state comments',state.comments)
+      // console.log('state comments',state.comments)
     }
 
   },
@@ -242,7 +242,7 @@ var store = new vuex.Store({
       // commit('clearTasks')
       api.post(`userboards/${task.boardId}/lists/${task.listId}/task`, task)
         .then(res => {
-          console.log('created', res)
+          // console.log('created', res)
           dispatch('getTasks', task)
         })
         .catch(err => {
@@ -250,7 +250,7 @@ var store = new vuex.Store({
         })
     },
     deleteTask({ commit, dispatch }, task) {
-      console.log(task)  
+      // console.log(task)  
       api.delete(`tasks/${task.taskId}`)
         .then(res => {
           dispatch('getTasks', task)
@@ -263,7 +263,7 @@ var store = new vuex.Store({
       // console.log('Task:', task)
       api(`userboards/${comment.boardId}/lists/${comment.listId}/task/${comment.taskId}/comments`)
         .then(res => {
-          console.log('Comment res:', res)
+          // console.log('Comment res:', res)
           commit('setComments', { comments: res.data.data, boardId: comment.boardId, listId: comment.listId, taskId: comment.taskId })
 
           // console.log(res)
@@ -273,7 +273,7 @@ var store = new vuex.Store({
         })
     },
     createComment({ commit, dispatch }, comment) {
-      console.log(comment)
+      // console.log(comment)
       // commit('clearTasks')
       api.post(`userboards/${comment.boardId}/lists/${comment.listId}/task/${comment.taskId}/comments`, comment)
         .then(res => {
