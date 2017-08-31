@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="container-fluid">
       <a href="/#/userboards" class="home"><h2>
 home</h2></a>
       <h1 class="board-credentials">
@@ -14,9 +14,12 @@ home</h2></a>
         <input type="text" placeholder="Description" v-model="description">
         <button type="submit">Create List</button>
       </form>
-      <hr>
+      <br>
+       <div class="row">
       <div v-for="list in lists">
         <lists :list="list" :boardId="board._id"></lists>
+       
+       </div>
         <!-- <hr>
         <h3>{{list.name}}</h3>
         <h4>{{list.description}}</h4>
@@ -28,7 +31,6 @@ home</h2></a>
             <h4>{{task.description}}</h4>
           </div>
         </div> -->
-        <hr>
       </div>
     </div>
   </div>
@@ -62,9 +64,8 @@ home</h2></a>
         }
         return this.$store.dispatch('createList', obj)
       },
-      deleteList(list) {
-        return this.$store.dispatch('removeList', list)
-      },
+      
+  
       createTask(listId, boardId) {
         var obj = {
           taskDescription: this.taskDescription,

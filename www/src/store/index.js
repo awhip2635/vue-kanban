@@ -22,8 +22,8 @@ var store = new vuex.Store({
     boards: [{ name: 'This is total rubbish' }],
     activeBoard: {},
     activeLists: {},
-    activeTasks: [],
-    activeComments: {},
+    activeTasks: {},
+    comments: {},
     error: {},
     loggedIn: false,
     registering: false,
@@ -54,15 +54,21 @@ var store = new vuex.Store({
     setLists(state, payload) {
       state.activeLists = payload
     },
-    setTasks(state, payload) {
-      payload.forEach(function(element) {
-        state.activeTasks.push(element)
-        
-      }, this);
-      console.log('active tasks: ', payload)
+    setTasks(state, { boardId, listId, tasks }) {
+
+      vue.set(state.activeTasks, listId, tasks)
+
+      // console.log('active tasks: ', state.activeTasks)
     },
-    clearTasks(state){
+    clearTasks(state) {
       state.activeTasks = []
+    },
+    setComments(state, {taskId, comments}){
+      console.log('comments',comments)
+      console.log('taskId', taskId)
+
+      vue.set(state.comments, taskId, comments)
+      console.log('state comments',state.comments)
     }
 
   },
@@ -188,73 +194,110 @@ var store = new vuex.Store({
               boardId: list.boardId,
               listId: list._id
             }
-            dispatch('getTasks', obj)
+            // dispatch('getTasks', obj)
 
           }
-      // console.log(obj)
-    })
-  .catch(err => {
-    commit('handleError', err)
-  })
+          // console.log(obj)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
     },
-createList({ commit, dispatch }, list) {
-  // console.log(list)
-  api.post(`userboards/${list.boardId}/lists/`, list)
-    .then(res => {
-      dispatch('getLists', list.boardId)
-    })
-    .catch(err => {
-      commit('handleError', err)
-    })
-},
-removeList({ commit, dispatch }, list) {
-  // console.log(list)  
-  api.delete(`userboards/${list.boardId}/lists/${list._id}`)
-    .then(res => {
-      dispatch('getLists', list.boardId)
-    })
-    .catch(err => {
-      commit('handleError', err)
-    })
-},
-getTasks({ commit, dispatch }, task) {
-  console.log('Task:',task)
-  api(`userboards/${task.boardId}/lists/${task.listId}/task`)
-    .then(res => {
-      console.log('Task Res:', res)
-      commit('setTasks', res.data.data)
-      // console.log(res)
-    })
-    .catch(err => {
-      commit('handleError', err)
-    })
-},
-createTask({ commit, dispatch }, task) {
-  // console.log(list)
-  commit('clearTasks')
-  api.post(`userboards/${task.boardId}/lists/${task.listId}/task`, task)
-    .then(res => {
-      console.log('created',res)
-      dispatch('getTasks', task)
-    })
-    .catch(err => {
-      commit('handleError', err)
-    })
-},
-removeTask({ commit, dispatch }, task) {
-  // console.log(list)  
-  api.delete(`userboards/${task.boardId}/lists/${task.listId}/task/${task._id}`)
-    .then(res => {
-      dispatch('getTasks', task.listId)
-    })
-    .catch(err => {
-      commit('handleError', err)
-    })
-},
+    createList({ commit, dispatch }, list) {
+      // console.log(list)
+      api.post(`userboards/${list.boardId}/lists/`, list)
+        .then(res => {
+          dispatch('getLists', list.boardId)
+          // commit('clearTasks')
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    removeList({ commit, dispatch }, list) {
+      // console.log(list)  
+      api.delete(`userboards/${list.boardId}/lists/${list._id}`)
+        .then(res => {
+          dispatch('getLists', list.boardId)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    getTasks({ commit, dispatch }, task) {
+      // console.log('Task:', task)
+      api(`userboards/${task.boardId}/lists/${task.listId}/task`)
+        .then(res => {
+          // console.log('Task Res:', res)
+          commit('setTasks', { tasks: res.data.data, boardId: task.boardId, listId: task.listId })
 
-handleError({ commit, dispatch }, err) {
-  commit('handleError', err)
-}
+          // console.log(res)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    createTask({ commit, dispatch }, task) {
+      // console.log(list)
+      // commit('clearTasks')
+      api.post(`userboards/${task.boardId}/lists/${task.listId}/task`, task)
+        .then(res => {
+          console.log('created', res)
+          dispatch('getTasks', task)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    deleteTask({ commit, dispatch }, task) {
+      console.log(task)  
+      api.delete(`tasks/${task.taskId}`)
+        .then(res => {
+          dispatch('getTasks', task)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    getComments({ commit, dispatch }, comment) {
+      // console.log('Task:', task)
+      api(`userboards/${comment.boardId}/lists/${comment.listId}/task/${comment.taskId}/comments`)
+        .then(res => {
+          console.log('Comment res:', res)
+          commit('setComments', { comments: res.data.data, boardId: comment.boardId, listId: comment.listId, taskId: comment.taskId })
+
+          // console.log(res)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    createComment({ commit, dispatch }, comment) {
+      console.log(comment)
+      // commit('clearTasks')
+      api.post(`userboards/${comment.boardId}/lists/${comment.listId}/task/${comment.taskId}/comments`, comment)
+        .then(res => {
+          console.log('created', res)
+          dispatch('getComments', comment)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    deleteComment({ commit, dispatch }, comment) {
+      console.log(comment)  
+      api.delete(`comments/${comment.commentId}`)
+        .then(res => {
+          dispatch('getComments', comment)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+    handleError({ commit, dispatch }, err) {
+      commit('handleError', err)
+    }
   }
 
 })
