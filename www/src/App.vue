@@ -13,11 +13,15 @@ export default {
   components:{
     Error,
     Login
+  },
+  mounted(){
+    this.$store.dispatch('getAuth')
   }
 }
 </script>
 
 <style>
+  
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

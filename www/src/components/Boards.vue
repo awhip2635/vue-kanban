@@ -1,7 +1,11 @@
 <template>
   <div class="boards">
     <div class="container-fluid">
-
+      <div class="row">
+        <div class="col-xs-offset-6 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <button @click="logout" class="btn boards btn-default">Logout</button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12">
           <h1 class="boards-top-heading"><strong>BOARDS</strong></h1>
@@ -59,6 +63,7 @@
     },
     mounted() {
       this.$store.dispatch('getBoards')
+      // this.$store.dispatch('getAuth')
     },
     computed: {
       boards() {
@@ -71,13 +76,17 @@
           name: this.name,
           description: this.description
         })
-        .then(
-        this.name = '',
-        this.description = ''
-        )
+          .then(
+          this.name = '',
+          this.description = ''
+          )
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
+      },
+      logout() {
+        this.$store.dispatch('logout')
+        this.$store.dispatch('getAuth')
       }
     }
   }

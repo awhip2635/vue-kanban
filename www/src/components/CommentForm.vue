@@ -1,14 +1,20 @@
 <template>
-<div class="commentForm">
-    <form @submit.prevent="createComment(taskId, listId, boardId)">
-            <button type="submit">Add Comment</button>
-            <input type="text" placeholder="Comment" v-model="description">
-        </form>
-</div>
+    <div class="commentForm">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <form class="form-inline" @submit.prevent="createComment(taskId, listId, boardId)">
+                        <input class="form-control" type="text" placeholder="Comment" v-model="description">
+                        <button class="form-control" type="submit">Add Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 <script>
-export default {
+    export default {
         name: 'CommentForm',
         props: ["taskId", "listId", "boardId"],
         data() {
@@ -16,8 +22,8 @@ export default {
                 description: ''
             }
         },
-        methods:{
-            createComment(taskId, listId, boardId){
+        methods: {
+            createComment(taskId, listId, boardId) {
                 var obj = {
                     taskId: taskId,
                     listId: listId,
@@ -27,9 +33,15 @@ export default {
                 this.$store.dispatch('createComment', obj)
             }
         }
-}
+    }
 
 </script>
 <style scoped>
-
+    .form-control{
+        background-color: transparent;
+        color: black;
+    }
+.btn{
+    color: black
+}
 </style>

@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import io from 'socket.io-client'
 import store from './store'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.css'
 
 
+Vue.use(VueMaterial)
 
 
 let socket = io('http://localhost:3000')

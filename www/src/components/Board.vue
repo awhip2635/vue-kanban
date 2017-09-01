@@ -7,6 +7,9 @@
             <button class="btn btn-default home">Return to Boards</button>
           </a>
         </div>
+        <div class="col-xs-offset-6 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <button @click="logout" class="btn boards btn-default">Logout</button>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
@@ -61,8 +64,7 @@
     mounted() {
       this.$store.dispatch('getBoard', this.$route.params.id)
       this.$store.dispatch('getLists', this.$route.params.id)
-      // this.$store.dispatch('getTasks', {
-      //     boardId: this.$route.params.id})
+      // this.$store.dispatch('getAuth')
     },
     methods: {
       createList(boardId) {
@@ -72,6 +74,10 @@
           boardId: boardId
         }
         return this.$store.dispatch('createList', obj)
+      },
+      logout() {
+        this.$store.dispatch('logout')
+        this.$store.dispatch('getAuth')
       },
 
 
@@ -135,23 +141,25 @@
     font-size: 50px;
   }
 
-  .addList{
+  .addList {
     background-color: rgba(0, 0, 0, .8);
     color: white;
     padding: 2rem;
     border-radius: 10px;
   }
 
-  .list{
+  .list {
     background-color: transparent;
     color: white;
     margin: 1rem 0 1rem 0;
   }
-  .list-btn{
+
+  .list-btn {
     background-color: transparent;
     color: white;
   }
-  .lists{
+
+  .lists {
     margin-top: 3rem;
   }
 </style>
