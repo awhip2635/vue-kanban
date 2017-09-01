@@ -1,30 +1,50 @@
 <template>
-  <div>
-    <div>
-      <h1 class="boards-top-heading"><strong>BOARDS</strong></h1>
-      <form @submit.prevent="createBoard">
-        <input type="text" v-model="name" placeholder="name">
-        <input type="text" v-model="description" placeholder="description">
-        <button type="submit" class="btn btn-primary">Add Board</button>
-      </form>
-    </div>
+  <div class="boards">
+    <div class="container-fluid">
 
-
-    <div v-for="board in boards" class="panel panel-board">
       <div class="row">
-        <div class="col-xs-1 col-sm-10 col-md-10">
-          <h3>
-            <router-link :to="'/userboards/'+ board._id + '/lists'">{{board.name}}</router-link>
-          </h3>
+        <div class="col-xs-12">
+          <h1 class="boards-top-heading"><strong>BOARDS</strong></h1>
         </div>
-        <div class="col-xs-6 col-sm-2 col-md-2">
-          <button class="btn btn-danger" @click="removeBoard(board)">Remove</button>
+        <div class="col-xs-offset-3 col-xs-6">
+          <div class="new">
+
+            <form class="form-inline" @submit.prevent="createBoard">
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="name" placeholder="Board Name">
+                <input type="text" class="form-control" v-model="description" placeholder="Board Description">
+                <button type="submit" class="btn btn-primary">Add New Board</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div v-for="board in boards">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-board">
+              <div class="row">
+                <div class="col-xs-10">
+                  <h2>
+                    <router-link :to="'/userboards/'+ board._id + '/lists'">{{board.name}}</router-link>
+                  </h2>
+                  <h5>
+                    {{board.description}}
+                  </h5>
+                </div>
+                <div class="col-xs-2">
+                  <button class="btn btn-danger" @click="removeBoard(board)">Remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
 
-  </div>
-  </div>
+
 
 </template>
 
@@ -61,12 +81,42 @@
 </script>
 
 <style scoped>
-.boards-top-heading {
-  color: magenta;
-font-family: 'Encode Sans Condensed', sans-serif;
-}
+  .btn-danger {
+    margin-top: 1rem;
+  }
 
-.panel-board {
-  max-width: 75%;
-}
+  .boards-top-heading {
+    color: magenta;
+    font-family: 'Encode Sans Condensed', sans-serif;
+    font-size: 10rem;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 10px;
+    margin: 0 40rem 5rem 40rem;
+  }
+
+  .panel-board {
+    max-width: 85%;
+    background-color: rgba(0, 0, 0, .8);
+    color: white;
+  }
+
+  a {
+    color: white;
+  }
+
+  .new {
+    margin-bottom: 1rem;
+    background-color: rgba(0, 0, 0, .8);
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  input {
+    background-color: transparent;
+    color: white;
+  }
+
+  .btn {
+    background-color: transparent;
+  }
 </style>

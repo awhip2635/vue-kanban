@@ -1,36 +1,55 @@
 <template>
     <div class="login">
-        <div v-if="!loggedIn">
-            <button id="registering" @click="reg">Register</button>
-            <button id="logging" @click="log">Login</button>
-            <div v-if="registering">
-                <form @submit.prevent="register">
-                    <input type="text" class="form-group" v-model="name" placeholder="name">
-                    <input type="email" class="form-group" v-model="email" placeholder="email">
-                    <input type="password" class="form-group" v-model="password" placeholder="password">
-                    <button type="submit" class="btn btn-default">Register</button>
-                </form>
-            </div>
-            <div v-if="logging">
-                <form @submit.prevent="login">
-                    <input type="email" class="form-group" v-model="email" placeholder="email">
-                    <input type="password" class="form-group" v-model="password" placeholder="password">
-                    <button type="submit" class="btn btn-default">Login</button>
-                </form>
-            </div>
-        </div>
-        <div v-else>
-            <div class="row">
-                
-                <div class="col-xs-9 col-sm-9 col-md-9">
-                    <h1 class="vue-kanban">Vue Kanban</h1>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="container-fluid">
 
-                    <button @click="logout" class="btn btn-default">Logout</button>
+            <div v-if="!loggedIn">
+                <div class="row">
+                    <div class="col-xs-offset-2  col-xs-3">
+                        <form @submit.prevent="login">
+                            <div class="form-group">
+                                <input type="email" class="form-control" v-model="logEmail" placeholder="email">
+                                <input type="password" class="form-control" v-model="logPassword" placeholder="password">
+                                <button type="submit" class="btn btn-default">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="or">
+                            <h2>Login or Register</h2>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="text-center">
+                            <form @submit.prevent="register">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" v-model="name" placeholder="name">
+                                    <input type="email" class="form-control" v-model="email" placeholder="email">
+                                    <input type="password" class="form-control" v-model="password" placeholder="password">
+                                    <button type="submit" class="btn btn-default">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 
+                    <div v-if="logging"> -->
+                    <!-- </div> -->
                 </div>
             </div>
-            <a class="my-boards" href="/#/userboards"><button class="btn btn-primary btn-block me-boards">My Boards</button></a>
+            <div v-if="loggedIn">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <a class="boards" href="/#/userboards"><button class="btn btn-default boards">My Boards</button></a>
+                    </div>
+                    <div class="col-xs-offset-6 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <button @click="logout" class="btn boards btn-default">Logout</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <h1 class="vue-kanban">Vue Kanban</h1>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -42,18 +61,20 @@
             return {
                 name: '',
                 email: '',
-                password: ''
+                password: '',
+                logEmail: '',
+                logPassword: ''
             }
         },
         methods: {
             login() {
                 var obj = {
-                    email: this.email,
-                    password: this.password
+                    email: this.logEmail,
+                    password: this.logPassword
                 }
                 this.$store.dispatch('login', obj)
-                email = '';
-                password = '';
+                // logEmail = '';
+                // logPassword = '';
             },
             logout() {
                 this.$store.dispatch('logout')
@@ -66,8 +87,8 @@
                 }
                 this.$store.dispatch('register', obj)
                 name = '';
-                email = '';
-                password = '';
+                // email = '';
+                // password = '';
             },
             log() {
                 this.$store.dispatch('log')
@@ -86,37 +107,60 @@
             logging() {
                 return this.$store.state.logging
             },
-            buttons() {
-                if (this.$store.state.registering) {
-                    document.getElementById("registering").style.display = hidden
-                }
-                if (logging == true) {
-                    document.getElementById("logging").style.display = hidden
-                }
-            }
+            // buttons() {
+            //     if (this.$store.state.registering) {
+            //         document.getElementById("registering").style.display = hidden
+            //     }
+            //     if (logging == true) {
+            //         document.getElementById("logging").style.display = hidden
+            //     }
+            // }
         }
     }
 
 </script>
 
 <style scoped>
-.vue-kanban {
-color: black;
-font-size: 170px;
+    .boards {
+        color: white;
+        background-color: transparent
+    }
 
-font-family: 'Encode Sans Condensed', sans-serif;
+    .or {
+        color: white;
+        /* background-color: rgba(0, 0, 0, .8); */
+        border-radius: 5px;
+    }
 
-}
+    .vue-kanban {
+        color: white;
+        font-size: 18rem;
+        font-family: 'Encode Sans Condensed', sans-serif;
+    }
+    /* .my-boards {
+        position: fixed;
+        bottom: 0;
+        right: 400px;
+    } */
+    /* .me-boards {
+        width: 800px; */
+    /* } */
 
-.my-boards {
-    position: fixed;
-    bottom: 0;
-    right: 400px;
-    
-}
- 
- .me-boards {
-     width: 800px;
- }
+    .form-control {
+        margin: 1rem 0 1rem 0;
+    }
 
+    .form-group {
+        margin-top: 2rem;
+        /* background-color: rgba(0, 0, 0, .8); */
+        padding: 1rem;
+        border-radius: 5px;
+    }
+
+    .login {
+        background-color: rgba(0, 0, 0, .8);
+        border-radius: 25px;
+        margin: 0 10rem 0 10rem;
+        padding-top: 3rem;
+    }
 </style>
