@@ -1,0 +1,32 @@
+{
+  "name": "vue-kanban",
+  "version": "1.0.0",
+  "description": "A non trivial application utilizing vuejs and node",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.16.0",
+    "connect-mongo": "^1.3.2",
+    "connect-mongodb-session": "^1.3.0",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "express-session": "^1.15.0",
+    "mongoose": "^4.8.1",
+    "socket.io": "^1.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awhip2635/vue-kanban.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awhip2635/vue-kanban/issues"
+  },
+  "homepage": "https://github.com/awhip2635/vue-kanban#readme"
+}
