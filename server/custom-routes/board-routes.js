@@ -89,6 +89,20 @@ module.exports = {
         })
     }
   },
+  PutTask: {
+    path: '/userboards/:boardId/lists/:listId/task/:taskId',
+    reqType: 'put',
+    method(req, res, next){
+      let action = 'Moving task to new list'
+      Task.findByIdAndUpdate({listId: req.params.listId}, task)
+      .then(task=>{
+        res.send(handleResponse(action, task))
+      })
+      .catch(error=> {
+        return next(handleResponse(action, null, error))
+      })
+    }
+  },
   DeleteTask: {
     path: '/userboards/:boardId/lists/:listId/task/:taskId',
     reqType: 'delete',

@@ -7,56 +7,40 @@
                         <button class="glyphicon glyphicon-th-list btn" @click="$refs.sidenav.toggle()">
                             <!-- <Span>Icon</Span> -->
                         </button>
-
                         <span style="flex: 1"></span>
                         <button class="glyphicon glyphicon-trash btn" @click="deleteTask(task._id)"></button>
-
-
                     </div>
-
                     <div class="md-toolbar-container">
                         <h3>
                             {{task.description}}
                         </h3>
                     </div>
                 </md-whiteframe>
-
                 <md-list class="md-double-line">
+                    <div v-for="comment in comments">
+                        <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
+                    </div>
                     <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
-                    
-                        <div v-for="comment in comments">
-                           
-                                
-                                <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>        
-                          
-                        </div>
-
                 </md-list>
-
                 <md-sidenav md-theme="blue" class="md-left" ref="sidenav">
                     <md-toolbar class="md-account-header">
                         <md-list class="md-transparent">
-
-
                             <md-list-item>
                                 <div class="md-list-text-container">
                                     <span>Move Task</span>
                                 </div>
-
                                 <md-button class="md-icon-button md-list-action">
                                     <md-icon>arrow_drop_down</md-icon>
                                 </md-button>
                             </md-list-item>
                         </md-list>
                     </md-toolbar>
-
                     <md-list>
-                            <div v-for="list in lists">
-                                <md-list-item @click="$refs.sidenav.toggle(), moveTask(list._id, task._id)" class="md-primary">
-                                    <md-icon>insert_drive_file</md-icon> <span>{{list.name}}</span>
-                                </md-list-item>
-
-                                  </div>
+                        <div v-for="list in activeLists">
+                            <md-list-item @click="$refs.sidenav.toggle(), moveTask(list._id, boardId, task)" class="md-primary">
+                                <span>{{list.name}}</span>
+                            </md-list-item>
+                        </div>
                     </md-list>
                 </md-sidenav>
             </div>
@@ -92,10 +76,11 @@
                 }
                 this.$store.dispatch('deleteTask', task)
             },
-            moveTask(listId, taskId){
+            moveTask(listId, boardId) {
                 var obj = {
                     listId: listId,
-                    taskId: taskId
+                    boardId: boardId,
+                    task: this.task
                 }
                 this.$store.dispatch('moveTask', obj)
             }
@@ -105,16 +90,16 @@
             board() {
                 return this.$store.state.activeBoard
             },
-            lists() {
+            activeLists() {
                 return this.$store.state.activeLists
             },
             comments() {
                 return this.$store.state.comments[this.task._id]
-            }
+            },
         },
         mounted() {
             this.$store.dispatch('getComments', { boardId: this.boardId, listId: this.listId, taskId: this.task._id })
-
+           // this.$store.dispatch('getTasks', { boardId: this.boardId, listId: this.listId})
         },
         components: {
             Comments,
@@ -138,10 +123,11 @@
     }
 
     .complete-example {
-        height: 540px;
+        margin-top: 2rem;
         display: flex;
         flex-flow: column;
         position: relative;
+        left: 10px;
         overflow: hidden;
         z-index: 1;
     }

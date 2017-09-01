@@ -57,10 +57,10 @@ var store = new vuex.Store({
       state.activeLists = payload
     },
     setTasks(state, { boardId, listId, tasks }) {
-
+      debugger
       vue.set(state.activeTasks, listId, tasks)
 
-      // console.log('active tasks: ', state.activeTasks)
+      console.log('active tasks: ', state.activeTasks)
     },
     clearTasks(state) {
       state.activeTasks = []
@@ -127,7 +127,7 @@ actions: {
           return router.push('/')
         }
         state.user = res.data.data
-        router.push('/userboards')
+        router.push('/#/userboards')
       })
       .catch(err => {
         router.push('/')
@@ -178,17 +178,6 @@ actions: {
     api(`userboards/${boardId}/lists`)
       .then(res => {
         commit('setLists', res.data.data)
-        // console.log(res)
-        for (var i = 0; i < res.data.data.length; i++) {
-          var list = res.data.data[i]
-          var obj = {
-            boardId: list.boardId,
-            listId: list._id
-          }
-          // dispatch('getTasks', obj)
-
-        }
-        // console.log(obj)
       })
       .catch(err => {
         commit('handleError', err)
@@ -221,8 +210,7 @@ actions: {
       .then(res => {
         // console.log('Task Res:', res)
         commit('setTasks', { tasks: res.data.data, boardId: task.boardId, listId: task.listId })
-
-        // console.log(res)
+        // dispatch('getLists', task.boardId)
       })
       .catch(err => {
         commit('handleError', err)
@@ -239,6 +227,18 @@ actions: {
       .catch(err => {
         commit('handleError', err)
       })
+  },
+  moveTask({commit, dispatch}, obj){
+    var oldList = obj.task.listId
+    obj.task.listId = obj.listId
+    api.put(`tasks/${obj.task._id}`, obj)
+    .then(res=> {
+      dispatch('getTasks', {boardId: obj.boardId, listId: obj.listId})
+      dispatch('getTasks', {boardId: obj.boardId, listId: oldList})
+    })
+    .catch(err =>{
+      commit ('handleError', err)
+    })
   },
   deleteTask({ commit, dispatch }, task) {
     // console.log(task)  
