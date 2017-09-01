@@ -1,8 +1,10 @@
 <template>
     <div class="task-form">
-        <form @submit.prevent="createTask(listId, boardId)">
-            <button type="submit">Add Task</button>
-            <input type="text" placeholder="Task Description" v-model="description">
+        <form class="form-inline" @submit.prevent="createTask(listId, boardId)">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Task Description" v-model="description">
+                <button class="btn btn-default" type="submit">Add Task</button>
+            </div>
         </form>
     </div>
 </template>
@@ -28,4 +30,13 @@
     }
 
 </script>
-<style scoped></style>
+<style scoped>
+    .form-control{
+        background-color: transparent;
+        color: white;
+    }
+    .btn{
+        background-color: transparent;
+        color: white;
+    }
+</style>

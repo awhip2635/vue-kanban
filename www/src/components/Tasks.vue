@@ -1,13 +1,19 @@
 <template>
     <div class="tasks">
-            <button @click="deleteTask(task._id)">x</button>
+        <div class="col-xs-10">
             <h3>
-                {{task.description}}
+                <li>
+                    {{task.description}}
+                </li>
             </h3>
             <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
             <div v-for="comment in comments">
-                     <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
-                </div>
+                <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <button class="btn btn-default" @click="deleteTask(task._id)">x</button>
+        </div>
     </div>
 </template>
 
@@ -32,7 +38,7 @@
                 }
             },
             deleteTask(taskId) {
-                var task ={
+                var task = {
                     boardId: this.boardId,
                     listId: this.listId,
                     taskId: taskId
@@ -40,7 +46,7 @@
                 this.$store.dispatch('deleteTask', task)
             }
         },
-        
+
         computed: {
             board() {
                 return this.$store.state.activeBoard
@@ -52,11 +58,11 @@
                 return this.$store.state.comments[this.task._id]
             }
         },
-        mounted(){
-            this.$store.dispatch('getComments', {boardId: this.boardId, listId: this.listId, taskId: this.task._id})
+        mounted() {
+            this.$store.dispatch('getComments', { boardId: this.boardId, listId: this.listId, taskId: this.task._id })
 
         },
-        components:{
+        components: {
             Comments,
             Commentform
         }
@@ -65,5 +71,9 @@
 </script>
 
 <style scope>
-
+    .btn{
+        background-color: transparent;
+        color: white;
+        margin-top: 1rem;
+    }
 </style>

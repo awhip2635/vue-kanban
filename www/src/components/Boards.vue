@@ -71,6 +71,10 @@
           name: this.name,
           description: this.description
         })
+        .then(
+        this.name = '',
+        this.description = ''
+        )
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)

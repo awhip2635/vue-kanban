@@ -1,38 +1,47 @@
 <template>
   <div>
     <div class="container-fluid">
-      <a href="/#/userboards" class="home"><h2>
-home</h2></a>
-      <h1 class="board-credentials">
-        {{board.name}}
-      </h1>
-      <p class="board-description">
-        {{board.description}}
-      </p>
-      <form @submit.prevent="createList(board._id)">
-        <input type="text" placeholder="Name" v-model="name">
-        <input type="text" placeholder="Description" v-model="description">
-        <button type="submit">Create List</button>
-      </form>
-      <br>
-       <div class="row">
-      <div v-for="list in lists">
-        <lists :list="list" :boardId="board._id"></lists>
-       
-       </div>
-        <!-- <hr>
-        <h3>{{list.name}}</h3>
-        <h4>{{list.description}}</h4>
-        <button @click="deleteList(list)">Delete List</button> -->
-        
-        <!-- <tasks></tasks> -->
-        <!-- <div v-for="task in tasks">
-          <div v-if="task.listId == list._id">
-            <h4>{{task.description}}</h4>
+      <div class="row">
+        <div class="col-xs-1">
+          <a href="/#/userboards" class="home">
+            <button class="btn btn-default home">Return to Boards</button>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="heading">
+            <h2 class="board-credentials">
+              {{board.name}}
+            </h2>
+            <!-- <p class="board-description">
+              {{board.description}}
+            </p> -->
           </div>
-        </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
+          <div class="addList">
+            <form @submit.prevent="createList(board._id)">
+              <div class="form-group">
+                <input type="text" placeholder="Name" class="form-control list" v-model="name">
+                <input type="text" placeholder="Description" class="form-control list" v-model="description">
+                <button class="btn btn-default list-btn" type="submit">Create List</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="lists">
+          <div v-for="list in lists">
+            <lists :list="list" :boardId="board._id"></lists>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -64,8 +73,8 @@ home</h2></a>
         }
         return this.$store.dispatch('createList', obj)
       },
-      
-  
+
+
       createTask(listId, boardId) {
         var obj = {
           taskDescription: this.taskDescription,
@@ -92,7 +101,7 @@ home</h2></a>
         console.log(this.$store.state.activeLists)
       }
     },
-    components:{
+    components: {
       Tasks,
       Lists
     }
@@ -101,20 +110,48 @@ home</h2></a>
 </script>
 
 <style scoped>
-.home {
-  position: fixed;
-  left: 25px;
-}
+  .home {
+    background-color: transparent;
+    color: white;
+  }
 
-.board-credentials {
-  color: black;
-  font-family:'Audiowide', cursive;
-  font-size: 100px;
+  .heading {
+    background-color: rgba(0, 0, 0, .8);
+    color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    margin: 2rem 10rem 2rem 10rem;
+  }
 
-}
-.board-description {
-  color: black;
-  font-family: 'Audiowide', cursive;
-  font-size: 50px;
-}
+  .board-credentials {
+    color: white;
+    font-family: 'Audiowide', cursive;
+    font-size: 100px;
+  }
+
+  .board-description {
+    color: white;
+    font-family: 'Audiowide', cursive;
+    font-size: 50px;
+  }
+
+  .addList{
+    background-color: rgba(0, 0, 0, .8);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+
+  .list{
+    background-color: transparent;
+    color: white;
+    margin: 1rem 0 1rem 0;
+  }
+  .list-btn{
+    background-color: transparent;
+    color: white;
+  }
+  .lists{
+    margin-top: 3rem;
+  }
 </style>
