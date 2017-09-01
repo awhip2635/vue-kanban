@@ -19,6 +19,10 @@
     "mongoose": "^4.8.1",
     "socket.io": "^1.7.3"
   },
+  "engines":{
+    "node": "8.1.4",
+    "npm": "5.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/awhip2635/vue-kanban.git"
