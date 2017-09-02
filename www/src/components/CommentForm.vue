@@ -5,7 +5,7 @@
                 <div class="form-group">
                     <form class="form-inline" @submit.prevent="createComment(taskId, listId, boardId)">
                         <input class="form-control" type="text" placeholder="Comment" v-model="description">
-                        <button class="form-control" type="submit">Add Comment</button>
+                        <button class="btn btn-default" type="submit">Add Comment</button>
                     </form>
                 </div>
             </div>

@@ -2,17 +2,16 @@
   <div class="boards">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-offset-11 col-xs-1">
+        <div class="col-xs-offset-10 col-xs-2">
           <button @click="logout" class="btn logout btn-default">Logout</button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-offset-4 col-xs-4">
           <h1 class="boards-top-heading"><strong>BOARDS</strong></h1>
         </div>
         <div class="col-xs-offset-3 col-xs-6">
           <div class="new">
-
             <form class="form-inline" @submit.prevent="createBoard">
               <div class="form-group">
                 <input type="text" class="form-control" v-model="name" placeholder="Board Name">
@@ -97,6 +96,9 @@
   .btn-danger {
     margin-top: 1rem;
   }
+  .btn-primary{
+    margin-bottom: 1rem;
+  }
 
   .boards-top-heading {
     color: magenta;
@@ -104,7 +106,7 @@
     font-size: 10rem;
     background-color: rgba(0, 0, 0, .8);
     border-radius: 10px;
-    margin: 0 40rem 5rem 40rem;
+    /* margin: 0 40rem 5rem 40rem; */
   }
 
   .panel-board {

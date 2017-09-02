@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <error></error>
     <router-view></router-view>
+    <foot></foot>
   </div>
 </template>
 
 <script>
 import Error from './components/Error'
-import Login from './components/Login'
+import Login from './components/Login' 
+import Foot from './components/Foot' 
 export default {
   name: 'app',
   components:{
     Error,
-    Login
+    Login,
+    Foot
   },
   mounted(){
     this.$store.dispatch('getAuth')

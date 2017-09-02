@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="board">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-1">
+        <div class="col-xs-2">
           <a href="/#/userboards" class="home">
             <button class="btn btn-default but">Return to Boards</button>
           </a>
         </div>
-        <div class="col-xs-offset-10 col-xs-1">
+        <div class="col-xs-offset-8 col-xs-2">
           <button @click="logout" class="btn boards btn-default but">Logout</button>
         </div>
       </div>
@@ -41,7 +41,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -161,5 +160,8 @@
 
   .lists {
     margin-top: 3rem;
+  }
+  .board{
+    padding-bottom: 6rem;
   }
 </style>

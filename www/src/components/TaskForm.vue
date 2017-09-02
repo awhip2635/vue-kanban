@@ -1,6 +1,6 @@
 <template>
     <div class="task-form">
-        <form class="form-inline" @submit.prevent="createTask(listId, boardId)">
+        <form @submit.prevent="createTask(listId, boardId)">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Task Description" v-model="description">
                 <button class="btn btn-default" type="submit">Add Task</button>
@@ -11,7 +11,7 @@
 <script>
     export default {
         name: 'TaskForm',
-        props: ["listId","boardId"],
+        props: ["listId", "boardId"],
         data() {
             return {
                 description: ''
@@ -25,17 +25,19 @@
                     listId: listId
                 }
                 this.$store.dispatch('createTask', obj)
+                this.description = ''
             }
         }
     }
 
 </script>
 <style scoped>
-    .form-control{
+    .form-control {
         background-color: transparent;
         color: white;
     }
-    .btn{
+
+    .btn {
         background-color: transparent;
         color: white;
     }

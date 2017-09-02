@@ -1,6 +1,6 @@
 <template>
     <div class="tasks">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <div class="phone-viewport complete-example">
                 <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="md-small">
                     <div class="md-toolbar-container">
@@ -128,10 +128,9 @@
 
     .complete-example {
         margin-top: 2rem;
-        display: flex;
-        flex-flow: column;
+        /* display: flex;
+        flex-flow: column; */
         position: relative;
-        left: 10px;
         overflow: hidden;
         z-index: 1;
     }

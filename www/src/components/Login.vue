@@ -1,10 +1,9 @@
 <template>
     <div class="login">
         <div class="container-fluid">
-
-            <div v-if="!loggedIn">
                 <div class="row">
-                    <div class="col-xs-offset-2  col-xs-3">
+                    <div class="col-xs-offset-2 col-xs-3">
+                        <h2 class="words">Log In</h2>
                         <form @submit.prevent="login">
                             <div class="form-group">
                                 <input type="email" class="form-control" v-model="logEmail" placeholder="email">
@@ -13,13 +12,9 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-xs-2">
-                        <div class="or">
-                            <h2>Login or Register</h2>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-offset-2 col-xs-3">
                         <div class="text-center">
+                            <h2 class="words">Register</h2>
                             <form @submit.prevent="register">
                                 <div class="form-group">
                                     <input type="text" class="form-control" v-model="name" placeholder="name">
@@ -30,12 +25,9 @@
                             </form>
                         </div>
                     </div>
-                    <!-- 
-                    <div v-if="logging"> -->
-                    <!-- </div> -->
                 </div>
             </div>
-            <div v-if="loggedIn">
+            <!-- <div v-if="loggedIn">
                 <div class="row">
                     <div class="col-xs-3">
                         <a class="boards" href="/#/userboards"><button class="btn btn-default boards">My Boards</button></a>
@@ -49,7 +41,7 @@
                         <h1 class="vue-kanban">Vue Kanban</h1>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -121,6 +113,9 @@
 </script>
 
 <style scoped>
+    .words{
+        color: white;
+    }
     .boards {
         color: white;
         background-color: transparent

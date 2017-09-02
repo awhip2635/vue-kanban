@@ -1,6 +1,6 @@
 <template>
     <div class="lists">
-        <div class="col-xs-6 col-sm-3 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <div class="panel">
                 <div class="row">
                     <div class="col-xs-1">
@@ -11,12 +11,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-9">
-                        <h3 @click="toggleDescription" class="list-credentials">{{list.name}}</h3>
+                    <div class="col-xs-12">
+                        <div class="name">
+                            <h2 @click="toggleDescription" class="list-credentials">{{list.name}}</h2>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div v-show="showDescription">
+                    <div v-if="showDescription">
                         <div class="col-xs-12">
                             <p class="list-description">{{list.description}}</p>
                         </div>
@@ -24,7 +26,7 @@
                 </div>
                 <div class="row">
                     <div v-show="addTask">
-                        <div class="col-xs-12">
+                        <div class="col-xs-offset-1 col-xs-10">
                             <taskform :listId="list._id" :boardId="boardId"></taskform>
                         </div>
                     </div>
@@ -72,7 +74,7 @@
             toggleAddTask() {
                 this.addTask = !this.addTask
             },
-            toggleDescription(){
+            toggleDescription() {
                 this.showDescription = !this.showDescription
             }
         }
@@ -90,7 +92,6 @@
     .list-credentials {
         color: white;
         font-family: 'Audiowide', cursive;
-        font-size: 6rem;
     }
 
     .list-description {
@@ -98,4 +99,6 @@
         font-family: 'Audiowide', cursive;
         font-size: 2rem;
     }
+    
+    
 </style>

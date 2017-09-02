@@ -87,7 +87,9 @@ actions: {
         if (res.data.message == "Invalid Email or Password") {
           return console.log(res.data.message)
         } else {
-          dispatch('changeLog')
+          // dispatch('changeLog')
+          router.push('userboards')          
+          return console.log(res.data.message)
         }
 
       })
@@ -101,6 +103,7 @@ actions: {
         if (res.data.message) {
           console.log('account created')
           dispatch('changeLog')
+          router.push('userboards')          
         } else if (res.error) {
           alert("Invalid Email or password");
         }
@@ -111,7 +114,9 @@ actions: {
     auth.delete('logout')
       .then((res) => {
         console.log(res.data.message)
-        dispatch('changeLog')
+        // dispatch('changeLog')
+        dispatch('getAuth')      
+        
       })
       .catch(() => console.log('error'))
   },
