@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col-xs-1">
           <a href="/#/userboards" class="home">
-            <button class="btn btn-default home">Return to Boards</button>
+            <button class="btn btn-default but">Return to Boards</button>
           </a>
         </div>
-        <div class="col-xs-offset-6 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button @click="logout" class="btn boards btn-default">Logout</button>
+        <div class="col-xs-offset-10 col-xs-1">
+          <button @click="logout" class="btn boards btn-default but">Logout</button>
         </div>
       </div>
       <div class="row">
@@ -17,9 +17,6 @@
             <h2 class="board-credentials">
               {{board.name}}
             </h2>
-            <!-- <p class="board-description">
-              {{board.description}}
-            </p> -->
           </div>
         </div>
       </div>
@@ -116,6 +113,9 @@
 </script>
 
 <style scoped>
+  .but{
+    background-color: rgba(0, 0, 0, .8)
+  }
   .home {
     background-color: transparent;
     color: white;

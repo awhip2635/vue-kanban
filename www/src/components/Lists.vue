@@ -3,21 +3,30 @@
         <div class="col-xs-6 col-sm-3 col-md-3">
             <div class="panel">
                 <div class="row">
-                    <div class="col-xs-9">
-                        <h3 class="list-credentials">{{list.name}}</h3>
-                    </div>
                     <div class="col-xs-1">
+                        <button @click="toggleAddTask" class="btn btn-efault glyphicon glyphicon-plus"></button>
+                    </div>
+                    <div class="col-xs-offset-8 col-xs-1">
                         <button @click="deleteList(list)" class="btn btn-danger">X</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
-                        <p class="list-description">{{list.description}}</p>
+                    <div class="col-xs-9">
+                        <h3 @click="toggleDescription" class="list-credentials">{{list.name}}</h3>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
-                        <taskform :listId="list._id" :boardId="boardId"></taskform>
+                    <div v-show="showDescription">
+                        <div class="col-xs-12">
+                            <p class="list-description">{{list.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div v-show="addTask">
+                        <div class="col-xs-12">
+                            <taskform :listId="list._id" :boardId="boardId"></taskform>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -39,6 +48,8 @@
         props: ["list", "boardId", "listId"],
         data() {
             return {
+                addTask: false,
+                showDescription: false
             }
         },
         mounted() {
@@ -57,6 +68,12 @@
         methods: {
             deleteList(list) {
                 return this.$store.dispatch('removeList', list)
+            },
+            toggleAddTask() {
+                this.addTask = !this.addTask
+            },
+            toggleDescription(){
+                this.showDescription = !this.showDescription
             }
         }
     }

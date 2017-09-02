@@ -5,7 +5,6 @@
                 <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="md-large">
                     <div class="md-toolbar-container">
                         <button class="glyphicon glyphicon-th-list btn" @click="$refs.sidenav.toggle()">
-                            <!-- <Span>Icon</Span> -->
                         </button>
                         <span style="flex: 1"></span>
                         <button class="glyphicon glyphicon-trash btn" @click="deleteTask(task._id)"></button>
@@ -14,13 +13,16 @@
                         <h3>
                             {{task.description}}
                         </h3>
+                        <button @click="addComments()" class="btn btn-default glyphicon glyphicon-pencil"></button>
                     </div>
                 </md-whiteframe>
                 <md-list class="md-double-line">
-                    <div v-for="comment in comments">
-                        <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
+                    <div v-if="showComments">
+                        <div v-for="comment in comments">
+                            <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
+                        </div>
+                        <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
                     </div>
-                    <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
                 </md-list>
                 <md-sidenav md-theme="blue" class="md-left" ref="sidenav">
                     <md-toolbar class="md-account-header">
@@ -56,7 +58,8 @@
         props: ["task", "listId", "boardId"],
         data() {
             return {
-                taskDescription: ''
+                taskDescription: '',
+                showComments: false
             }
         },
         methods: {
@@ -83,6 +86,9 @@
                     task: this.task
                 }
                 this.$store.dispatch('moveTask', obj)
+            },
+            addComments(){
+                this.showComments = !this.showComments
             }
         },
 

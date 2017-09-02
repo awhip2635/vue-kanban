@@ -2,8 +2,8 @@
   <div class="boards">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-offset-6 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button @click="logout" class="btn boards btn-default">Logout</button>
+        <div class="col-xs-offset-11 col-xs-1">
+          <button @click="logout" class="btn logout btn-default">Logout</button>
         </div>
       </div>
       <div class="row">
@@ -131,5 +131,8 @@
 
   .btn {
     background-color: transparent;
+  }
+  .logout{
+    background-color: rgba(0, 0, 0, .8)
   }
 </style>
