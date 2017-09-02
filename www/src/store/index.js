@@ -7,13 +7,15 @@ import router from '../router'
 
 
 let api = axios.create({
-  baseURL: '//our-kanban-vue.herokuapp.com/api/',
+  // baseURL: '//our-kanban-vue.herokuapp.com/api/',
+  baseURL: '//localhost:3000/api/',
   timeout: 2000,
   withCredentials: true
 })
 
 let auth = axios.create({
-  baseURL: '//our-kanban-vue.herokuapp.com/',
+  // baseURL: '//our-kanban-vue.herokuapp.com/',
+  baseURL: '//localhost:3000/',
   timeout: 2000,
   withCredentials: true
 })
@@ -57,7 +59,7 @@ var store = new vuex.Store({
       state.activeLists = payload
     },
     setTasks(state, { boardId, listId, tasks }) {
-      debugger
+ 
       vue.set(state.activeTasks, listId, tasks)
 
       console.log('active tasks: ', state.activeTasks)
@@ -68,6 +70,10 @@ var store = new vuex.Store({
     setComments(state, { taskId, comments }) {
       vue.set(state.comments, taskId, comments)
       // console.log('state comments',state.comments)
+    },
+    getAuth(state, user){
+      state.user = user
+      
     }
   },
 
@@ -120,16 +126,19 @@ actions: {
   },
 
   //login items ^^^^^^
-  getAuth() {
+  getAuth({commit, dispatch}) {
     auth('authenticate')
-      .then(res => {
-        if (!res.data.data) {
-          return router.push('/')
-        }
-        state.user = res.data.data
-        router.push('/#/userboards')
-      })
+    .then(res => {
+      if (!res.data.data) {
+        return router.push('/')
+      }
+        commit('getAuth', res.data.data)
+        // stateuser = res.data.data
+        router.push('userboards')
+
+    })
       .catch(err => {
+        console.log(err)
         router.push('/')
       })
   },
