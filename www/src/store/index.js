@@ -62,7 +62,7 @@ var store = new vuex.Store({
  
       vue.set(state.activeTasks, listId, tasks)
 
-      console.log('active tasks: ', state.activeTasks)
+      // console.log('active tasks: ', state.activeTasks)
     },
     clearTasks(state) {
       state.activeTasks = []
@@ -135,6 +135,7 @@ actions: {
         commit('getAuth', res.data.data)
         // stateuser = res.data.data
         router.push('userboards')
+        // router.replace('userboards')
 
     })
       .catch(err => {
@@ -277,7 +278,7 @@ actions: {
     // commit('clearTasks')
     api.post(`userboards/${comment.boardId}/lists/${comment.listId}/task/${comment.taskId}/comments`, comment)
       .then(res => {
-        console.log('created', res)
+        // console.log('created', res)
         dispatch('getComments', comment)
       })
       .catch(err => {

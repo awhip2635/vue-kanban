@@ -31,6 +31,7 @@
                     description: this.description
                 }
                 this.$store.dispatch('createComment', obj)
+                this.description = ''
             }
         }
     }

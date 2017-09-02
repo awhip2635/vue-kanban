@@ -2,38 +2,37 @@
     <div class="tasks">
         <div class="col-xs-10">
             <div class="phone-viewport complete-example">
-                <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="md-large">
+                <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="md-small">
                     <div class="md-toolbar-container">
                         <button class="glyphicon glyphicon-th-list btn" @click="$refs.sidenav.toggle()">
                         </button>
+                        <button @click="addComments()" class="btn glyphicon glyphicon-pencil"></button>
                         <span style="flex: 1"></span>
                         <button class="glyphicon glyphicon-trash btn" @click="deleteTask(task._id)"></button>
                     </div>
-                    <div class="md-toolbar-container">
+                    <div class="md-toolbar-container description">
                         <h3>
                             {{task.description}}
                         </h3>
-                        <button @click="addComments()" class="btn btn-default glyphicon glyphicon-pencil"></button>
                     </div>
                 </md-whiteframe>
+                <div v-if="showComments">
                 <md-list class="md-double-line">
-                    <div v-if="showComments">
                         <div v-for="comment in comments">
                             <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
                         </div>
-                        <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
-                    </div>
-                </md-list>
+                        <div class="c-form">
+                            <commentform :taskId="task._id" :listId="listId" :boardId="boardId"></commentform>
+                        </div>
+                    </md-list>
+                </div>
                 <md-sidenav md-theme="blue" class="md-left" ref="sidenav">
                     <md-toolbar class="md-account-header">
                         <md-list class="md-transparent">
                             <md-list-item>
-                                <div class="md-list-text-container">
-                                    <span>Move Task</span>
+                                <div @click="$refs.sidenav.toggle()" class="md-list-text-container">
+                                    <span>Scroll to Select New List</span>
                                 </div>
-                                <md-button class="md-icon-button md-list-action">
-                                    <md-icon>arrow_drop_down</md-icon>
-                                </md-button>
                             </md-list-item>
                         </md-list>
                     </md-toolbar>
@@ -87,7 +86,7 @@
                 }
                 this.$store.dispatch('moveTask', obj)
             },
-            addComments(){
+            addComments() {
                 this.showComments = !this.showComments
             }
         },
@@ -105,7 +104,6 @@
         },
         mounted() {
             this.$store.dispatch('getComments', { boardId: this.boardId, listId: this.listId, taskId: this.task._id })
-           // this.$store.dispatch('getTasks', { boardId: this.boardId, listId: this.listId})
         },
         components: {
             Comments,
@@ -177,6 +175,24 @@
     .md-double-line {
         overflow-x: hidden;
     }
-    /* } */
-    /* } */
+
+    .md-primary {
+        background-color: rgb(69, 115, 188);
+    }
+
+    .md-transparent {
+        background-color: rgb(69, 115, 188);
+    }
+
+    .c-form {
+        margin-top: 1rem;
+    }
+
+    .description {
+        margin-top: -3rem;
+    }
+
+    .c-class {
+        background-color: rgba(0, 0, 0, .8);
+    }
 </style>

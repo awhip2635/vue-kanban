@@ -7,7 +7,6 @@
                 </h5>
             </div>
             <div class="col-xs-2 col-sm-2">
-
                 <button class="btn glyphicon glyphicon-remove" @click="deleteComment(comment._id)"></button>
             </div>
         </div>
@@ -44,6 +43,8 @@
     }
 
     .comment {
-        margin-top: 3rem;
+        margin-left: .5rem;
+        margin-top: 2rem;
+        text-align: left;
     }
 </style>
