@@ -108,7 +108,6 @@
                 this.showEdit = !this.showEdit
             },
             editTask(){
-                // this.task.description = this.edit
                 var obj = {
                     listId: this.listId,
                     boardId: this.boardId,
@@ -143,7 +142,7 @@
 
 </script>
 
-<style scope>
+<style scoped>
     .edit-input{
         background: transparent;
         color: white;

@@ -209,6 +209,18 @@ actions: {
         commit('handleError', err)
       })
   },
+  
+  editList({commit, dispatch}, obj){
+    // console.log(obj)
+    api.put(`lists/${obj.listId}`, obj)
+    .then(res=>{
+      // console.log(res)
+      dispatch('getLists', obj.boardId)
+    })
+    .catch(err =>{
+      commit ('handleError', err)
+    })
+  },
   removeList({ commit, dispatch }, list) {
     // console.log(list)  
     api.delete(`userboards/${list.boardId}/lists/${list._id}`)

@@ -6,17 +6,38 @@
                     <div class="col-xs-1">
                         <button @click="toggleAddTask" class="btn btn-efault glyphicon glyphicon-plus"></button>
                     </div>
-                    <div class="col-xs-offset-6 col-xs-1">
-                        <button @click="toggleDescription" class="btn btn-default">?</button>
+                    <div class="col-xs-1">
+                        <button @click="toggleDescription" class="q btn"><strong>?</strong></button>
+                    </div>
+                    <div class="col-xs-offset-5 col-xs-1">
+                        <button @click="showEditor()" class="btn glyphicon glyphicon-pencil"></button>
                     </div>
                     <div class="col-xs-offset-1 col-xs-1">
                         <button @click="deleteList(list)" class="btn btn-danger">X</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="name">
-                            <h2 @click="toggleDescription" class="list-credentials">{{list.name}}</h2>
+                    <div v-if="!editor">
+                        <div class="col-xs-12">
+                            <div class="name">
+                                <h2 class="list-credentials">{{list.name}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div class="col-xs-12">
+                            <form class="form-inline edit-form" @submit.prevent="editList(), showEditor()">
+                                <div class="form-group">
+                                    <input class="form-control edit-input" type="text" v-model="list.name">
+                                    <button class="btn btn-default edit-btn">Edit</button>
+                                </div>
+                            </form>
+                            <form class="form-inline edit-form" @submit.prevent="editList(), showEditor()">
+                                <div class="form-group">
+                                    <input class="form-control edit-input" type="text" v-model="list.description">
+                                    <button class="btn btn-default edit-btn">Edit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -55,7 +76,8 @@
         data() {
             return {
                 addTask: false,
-                showDescription: false
+                showDescription: false,
+                editor: false
             }
         },
         mounted() {
@@ -82,12 +104,39 @@
             },
             toggleDescription() {
                 this.showDescription = !this.showDescription
+            },
+            showEditor() {
+                this.editor = !this.editor
+            },
+            editList() {
+                var obj = {
+                    listId: this.list._id,
+                    boardId: this.boardId,
+                    name: this.list.name,
+                    description: this.list.description
+                }
+                this.$store.dispatch('editList', obj)
             }
         }
     }
 
 </script>
 <style scoped>
+    .q{
+        margin-left: 1rem;
+        border: transparent;
+        font-size: 2rem
+    }
+    input {
+        background-color: transparent;
+        border: transparent;
+        color: white;
+    }
+
+    .edit-form {
+        margin-top: 1rem;
+    }
+
     .panel {
         background-color: rgba(0, 0, 0, .8);
         color: white;
