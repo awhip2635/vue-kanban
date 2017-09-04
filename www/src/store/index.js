@@ -7,15 +7,15 @@ import router from '../router'
 
 
 let api = axios.create({
-  baseURL: '//our-kanban-vue.herokuapp.com/api/',
-  // baseURL: '//localhost:3000/api/',
+  // baseURL: '//our-kanban-vue.herokuapp.com/api/',
+  baseURL: '//localhost:3000/api/',
   timeout: 2000,
   withCredentials: true
 })
 
 let auth = axios.create({
-  baseURL: '//our-kanban-vue.herokuapp.com/',
-  // baseURL: '//localhost:3000/',
+  // baseURL: '//our-kanban-vue.herokuapp.com/',
+  baseURL: '//localhost:3000/',
   timeout: 2000,
   withCredentials: true
 })
@@ -23,7 +23,7 @@ vue.use(vuex)
 
 var store = new vuex.Store({
   state: {
-    boards: [{ name: 'This is total rubbish' }],
+    boards: [],
     activeBoard: {},
     activeLists: {},
     activeTasks: {},
@@ -221,6 +221,7 @@ actions: {
   },
   getTasks({ commit, dispatch }, task) {
     // console.log('Task:', task)
+    // console.log('getting tasks')
     api(`userboards/${task.boardId}/lists/${task.listId}/task`)
       .then(res => {
         // console.log('Task Res:', res)
@@ -244,12 +245,24 @@ actions: {
       })
   },
   moveTask({commit, dispatch}, obj){
+    // console.log(obj)
     var oldList = obj.task.listId
     obj.task.listId = obj.listId
     api.put(`tasks/${obj.task._id}`, obj)
     .then(res=> {
       dispatch('getTasks', {boardId: obj.boardId, listId: obj.listId})
       dispatch('getTasks', {boardId: obj.boardId, listId: oldList})
+    })
+    .catch(err =>{
+      commit ('handleError', err)
+    })
+  },
+  editTask({commit, dispatch}, obj){
+    // console.log(obj)
+    api.put(`tasks/${obj.task._id}`, obj)
+    .then(res=>{
+      // console.log(res)
+      dispatch('getTasks', {boardId: obj.boardId, listId: obj.listId})
     })
     .catch(err =>{
       commit ('handleError', err)

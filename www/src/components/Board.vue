@@ -69,7 +69,9 @@
           description: this.description,
           boardId: boardId
         }
-        return this.$store.dispatch('createList', obj)
+        this.$store.dispatch('createList', obj)
+        this.name = ''
+        this.description = ''
       },
       logout() {
         this.$store.dispatch('logout')

@@ -67,6 +67,7 @@ function API(model, schema) {
 
     schema.findOneAndUpdate({ _id: id }, req.body)
       .then(data => {
+        // console.log(req.body)
         return res.send(handleResponse(action, { message: 'Successfully updated' }))
       })
       .catch(error => {

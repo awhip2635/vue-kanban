@@ -6,7 +6,10 @@
                     <div class="col-xs-1">
                         <button @click="toggleAddTask" class="btn btn-efault glyphicon glyphicon-plus"></button>
                     </div>
-                    <div class="col-xs-offset-8 col-xs-1">
+                    <div class="col-xs-offset-6 col-xs-1">
+                        <button @click="toggleDescription" class="btn btn-default">?</button>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-1">
                         <button @click="deleteList(list)" class="btn btn-danger">X</button>
                     </div>
                 </div>
@@ -45,6 +48,7 @@
 <script>
     import Tasks from './Tasks'
     import Taskform from './TaskForm'
+    import draggable from 'vuedraggable'
     export default {
         name: 'list',
         props: ["list", "boardId", "listId"],
@@ -60,9 +64,11 @@
         },
         components: {
             Tasks,
-            Taskform
+            Taskform,
+            draggable
         },
         computed: {
+            // Non-draggable below
             tasks() {
                 return this.$store.state.activeTasks[this.list._id]
             }
@@ -99,6 +105,4 @@
         font-family: 'Audiowide', cursive;
         font-size: 2rem;
     }
-    
-    
 </style>

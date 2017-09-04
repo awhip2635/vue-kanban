@@ -6,18 +6,29 @@
                     <div class="md-toolbar-container">
                         <button class="glyphicon glyphicon-th-list btn" @click="$refs.sidenav.toggle()">
                         </button>
-                        <button @click="addComments()" class="btn glyphicon glyphicon-pencil"></button>
+                        <button @click="addComments()" class="btn glyphicon glyphicon-comment"></button>
+                        <button @click="showEditor()" class="btn glyphicon glyphicon-pencil"></button>
                         <span style="flex: 1"></span>
                         <button class="glyphicon glyphicon-trash btn" @click="deleteTask(task._id)"></button>
                     </div>
                     <div class="md-toolbar-container description">
-                        <h3>
-                            {{task.description}}
-                        </h3>
+                        <div v-if="!showEdit">
+                            <h3>
+                                {{task.description}}
+                            </h3>
+                        </div>
+                        <div v-else>
+                            <form class="form-inline edit-form" @submit.prevent="editTask(), showEditor()">
+                                <div class="form-group">
+                                    <input class="form-control edit-input" type="text" v-model="task.description">
+                                    <button class="btn btn-default edit-btn">Edit</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </md-whiteframe>
                 <div v-if="showComments">
-                <md-list class="md-double-line">
+                    <md-list class="md-double-line">
                         <div v-for="comment in comments">
                             <comments :comment="comment" :taskId="task._id" :listId="listId" :boardId="boardId"></comments>
                         </div>
@@ -44,6 +55,7 @@
                         </div>
                     </md-list>
                 </md-sidenav>
+                </div>
             </div>
         </div>
     </div>
@@ -52,13 +64,16 @@
 <script>
     import Comments from './Comments'
     import Commentform from './CommentForm'
+    import draggable from 'vuedraggable'
     export default {
         name: 'Tasks',
         props: ["task", "listId", "boardId"],
         data() {
             return {
                 taskDescription: '',
-                showComments: false
+                edit: '',
+                showComments: false,
+                showEdit: false
             }
         },
         methods: {
@@ -88,6 +103,20 @@
             },
             addComments() {
                 this.showComments = !this.showComments
+            },
+            showEditor() {
+                this.showEdit = !this.showEdit
+            },
+            editTask(){
+                // this.task.description = this.edit
+                var obj = {
+                    listId: this.listId,
+                    boardId: this.boardId,
+                    taskId: this.task._id,
+                    description: this.task.description,
+                    task: this.task
+                }
+                this.$store.dispatch('editTask', obj)
             }
         },
 
@@ -100,20 +129,32 @@
             },
             comments() {
                 return this.$store.state.comments[this.task._id]
-            },
+            }
         },
         mounted() {
             this.$store.dispatch('getComments', { boardId: this.boardId, listId: this.listId, taskId: this.task._id })
         },
         components: {
             Comments,
-            Commentform
+            Commentform,
+            draggable
         }
     }
 
 </script>
 
 <style scope>
+    .edit-input{
+        background: transparent;
+        color: white;
+        border: transparent;
+    }
+    .edit-form{
+        margin-top: 1rem;
+    }
+    .edit-btn{
+        margin-bottom: 1rem;
+    }
     .btn {
         background-color: transparent;
         color: white;
