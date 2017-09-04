@@ -27,13 +27,32 @@
           <div class="col-xs-12">
             <div class="panel panel-board">
               <div class="row">
-                <div class="col-xs-10">
-                  <h2>
-                    <router-link :to="'/userboards/'+ board._id + '/lists'">{{board.name}}</router-link>
-                  </h2>
-                  <h5>
-                    {{board.description}}
-                  </h5>
+                <div class="col-xs-1">
+                  <button @click="showEditor()" class="btn glyphicon glyphicon-pencil"></button>
+                </div>
+                <div class="col-xs-9">
+                  <div v-if="editor">
+                    <h2>
+                      <router-link :to="'/userboards/'+ board._id + '/lists'">{{board.name}}</router-link>
+                    </h2>
+                    <h5>
+                      {{board.description}}
+                    </h5>
+                  </div>
+                  <div v-else>
+                    <form class="form-inline edit-form" @submit.prevent="editBoard(board._id, board.name, board.description), showEditor()">
+                      <div class="form-group">
+                        <input class="form-control edit-input" type="text" v-model="board.name">
+                        <button class="btn btn-default edit-btn">Edit</button>
+                      </div>
+                    </form>
+                    <form class="form-inline edit-form" @submit.prevent="editBoard(board._id, board.name, board.description), showEditor()">
+                      <div class="form-group">
+                        <input class="form-control edit-input" type="text" v-model="board.description">
+                        <button class="btn btn-default edit-btn">Edit</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
                 <div class="col-xs-2">
                   <button class="btn btn-danger" @click="removeBoard(board)">Remove</button>
@@ -57,7 +76,8 @@
     data() {
       return {
         name: '',
-        description: ''
+        description: '',
+        editor: true
       }
     },
     mounted() {
@@ -86,6 +106,17 @@
       logout() {
         this.$store.dispatch('logout')
         this.$store.dispatch('getAuth')
+      },
+      showEditor() {
+        this.editor = !this.editor
+      },
+      editBoard(boardId, name, description) {
+        var obj = {
+          boardId: boardId,
+          name: name,
+          description: description
+        }
+        this.$store.dispatch('editBoard', obj)
       }
     }
   }
@@ -93,10 +124,14 @@
 </script>
 
 <style scoped>
+  .edit-input{
+    border: transparent;
+  }
   .btn-danger {
     margin-top: 1rem;
   }
-  .btn-primary{
+
+  .btn-primary {
     margin-bottom: 1rem;
   }
 
@@ -134,7 +169,8 @@
   .btn {
     background-color: transparent;
   }
-  .logout{
+
+  .logout {
     background-color: rgba(0, 0, 0, .8)
   }
 </style>

@@ -177,6 +177,17 @@ actions: {
         commit('handleError', err)
       })
   },
+  editBoard({commit, dispatch}, obj){
+    console.log(obj)
+    api.put(`boards/${obj.boardId}`, obj)
+    .then(res=>{
+      console.log(res)
+      dispatch('getBoards', obj.boardId)
+    })
+    .catch(err =>{
+      commit ('handleError', err)
+    })
+  },
   removeBoard({ commit, dispatch }, board) {
     api.delete('boards/' + board._id)
       .then(res => {
