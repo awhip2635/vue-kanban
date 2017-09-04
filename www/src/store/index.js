@@ -7,15 +7,15 @@ import router from '../router'
 
 
 let api = axios.create({
-  // baseURL: '//our-kanban-vue.herokuapp.com/api/',
-  baseURL: '//localhost:3000/api/',
+  baseURL: '//our-kanban-vue.herokuapp.com/api/',
+  // baseURL: '//localhost:3000/api/',
   timeout: 2000,
   withCredentials: true
 })
 
 let auth = axios.create({
-  // baseURL: '//our-kanban-vue.herokuapp.com/',
-  baseURL: '//localhost:3000/',
+  baseURL: '//our-kanban-vue.herokuapp.com/',
+  // baseURL: '//localhost:3000/',
   timeout: 2000,
   withCredentials: true
 })
