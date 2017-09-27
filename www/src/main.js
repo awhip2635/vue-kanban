@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import store from './store'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
@@ -12,12 +12,12 @@ import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
 
 
-let socket = io('http://localhost:3000')
+// let socket = io('http://localhost:3000')
 
-socket.on('CONNECTED', function (data) {
-  console.log(data)
-  socket.emit('update', { data: 'blarg', boardId: '3289748320' })
-})
+// socket.on('CONNECTED', function (data) {
+//   console.log(data)
+//   socket.emit('update', { data: 'blarg', boardId: '3289748320' })
+// })
 
 
 
