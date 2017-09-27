@@ -84,11 +84,11 @@ actions: {
       .then((res) => {
         // console.log(res)
         // res = JSON.parse(res);
-        if (res.data.message == "Invalid Email or Password") {
+        if (res.data.message == "successfully logged in") {
+          router.push('userboards')          
           return console.log(res.data.message)
         } else {
           // dispatch('changeLog')
-          router.push('userboards')          
           return console.log(res.data.message)
         }
 
